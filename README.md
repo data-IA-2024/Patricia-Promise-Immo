@@ -28,13 +28,13 @@ Ce projet propose une **application** et un **pipeline de data science** qui pr�
 * Feature engineering minimal (prix/m², âge du bien, encodages catégoriels, géo-features).
 * Entraînement d’un modèle de régression (baseline + modèle avancé type Gradient Boosting/XGBoost).
 * Évaluation standard (MAE, RMSE, R²) + sauvegarde des artefacts.
-* Service d’inférence (CLI et API FastAPI optionnelle).
+* Service d’inférence (CLI et API FastAPI).
 
 ---
 
 ##  Structure du projet (suggestion)
 
-```
+```bash
 .
 ├── app/                    # (optionnel) API FastAPI pour l’inférence
 │   └── main.py
@@ -74,7 +74,7 @@ Ce projet propose une **application** et un **pipeline de data science** qui pr�
 
 ##  Prérequis
 
-* **Python** ≥ 3.11 (recommandé : 3.11.1)
+* **Python** ≥ 3.10.11  `(recommandé : 3.11.1)`
 * `pip`, `virtualenv` (ou `conda`)
 
 ---
@@ -85,10 +85,27 @@ Ce projet propose une **application** et un **pipeline de data science** qui pr�
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\\Scripts\\activate
 pip install -r requirements.txt
+pip install dvc
 ```
 
 Crée un fichier `.env` (ou copie `.env.example`) si nécessaire pour les chemins par défaut.
 
+---
+
+##  Outil de versionning des données
+```bash
+    dvc init
+    git add .dvc .gitignore
+    git commit -m "Initialisation de DVC"
+
+   # Ajouter un dataset à suivre
+    dvc add D:/ProjectFolderDevAI_2025-2026/Immo_project/Patricia-Promise-Immo/data # chemin absolu requis
+
+  # Ajout dans git du dataset versionné avec DVC
+    git add D:/ProjectFolderDevAI_2025-2026/Immo_project/Patricia-Promise-Immo/data.dvc .gitignore 
+    git commit -m "Ajout du dataset versionné avec DVC"
+
+```
 ---
 
 ##  Pipeline (pas à pas)
@@ -96,7 +113,7 @@ Crée un fichier `.env` (ou copie `.env.example`) si nécessaire pour les chemin
 ### 1) Préparer les données (raw → interim)
 
 ```bash
-python scripts/prepare_data.py \
+  python scripts/prepare_data.py \
   --input data/raw \
   --output data/interim
 ```
