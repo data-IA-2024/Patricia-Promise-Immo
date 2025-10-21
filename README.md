@@ -54,8 +54,52 @@ Ce projet propose une **application** et un **pipeline de data science** qui pr�
 ├── README.md
 └── .env.example           # variables d’environnement
 ```
-
 ---
+## Infrastructure Docker – MLflow
+Cette section décrit la configuration Docker utilisée pour exécuter MLflow, un outil de suivi d’expériences de Machine Learning.
+
+### Configuration
+Image utilisée : **ghcr.io/mlflow/mlflow:latest**
+Port exposé : **5000**
+Volume persistant : **mlflow_data**
+
+````bash
+  version: "3.9"
+
+  services:
+    mlflow:
+      image: ghcr.io/mlflow/mlflow:latest
+      container_name: mlflow_container
+      ports:
+        - "5000:5000"
+      volumes:
+        - "mlflow_data:/mlflow/mlruns"
+      command: >
+        mlflow server
+        --backend-store-uri sqlite:///mlflow/mlflow.db
+        --default-artifact-root file:/mlflow/mlruns
+        --host 0.0.0.0
+
+  volumes:
+    mlflow_data:
+````
+
+### Utilisation
+
+ **Démarrer MLflow**
+```bash
+  docker compose up -d
+```
+
+**Arrêter le service**
+
+```bash
+  docker compose down
+```
+
+Accéder à l’interface web :  **http://localhost:5000**
+
+Les données sont conservées dans le volume Docker **mlflow_data**, même après suppression du conteneur.
 
 ##  Données
 
@@ -143,7 +187,7 @@ python scripts/predict.py \
   --features '{"surface_living":65, "rooms":3, "bedrooms":2, "postal_code":"75011", "latitude":48.857, "longitude":2.379, "year_built":1975, "property_type":"apartment"}'
 ```
 
-### (Optionnel) Lancer l’API
+### Lancer l’API
 
 ```bash
 uvicorn app.main:app --reload
