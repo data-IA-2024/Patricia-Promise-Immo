@@ -225,3 +225,10 @@ data/**
 
 # (optionnel) garder un .gitkeep pour que le dossier existe dans le repo
 !data/.gitkeep
+
+Petit rappel sur DVC:
+- data/ : dossier où sont stockées les données (ignoré par git)
+- data/*.dvc : fichiers de métadonnées DVC (suivis par git)
+
+# Cela permet de versionner les données volumineuses avec DVC tout en gardant
+# le dossier data/ dans le dépôt git.
