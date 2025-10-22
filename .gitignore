@@ -215,13 +215,13 @@ __marimo__/
 
 # Data folder and DVC
 # Ignorer tout le contenu de data/
-#data/**
+data/**
 
 # ...mais garder le dossier lui-même
-#!data/
+!data/
 
 # ...et garder tous les fichiers .dvc (métadonnées DVC)
-#!*.dvc
+!data/*.dvc
 
 # (optionnel) garder un .gitkeep pour que le dossier existe dans le repo
-#!data/.gitkeep
+!data/.gitkeep
