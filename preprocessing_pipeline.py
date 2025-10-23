@@ -63,12 +63,6 @@ df[assez_rempli].to_parquet('outputs/all_immo_no_empty.parquet')
 
 df = pd.read_parquet('outputs/all_immo_no_empty.parquet')
 
-# Type local to numeric category
-df['Type local'] = df['Type local'].replace({
-    'Dépendance': 1,
-    'Maison': 2,
-    'Appartement': 3
-})
 
 # identification of different dtypes
 ints = []
@@ -93,7 +87,7 @@ df_no_nan = df.fillna(value=0)
 df_final = df_no_nan.drop(columns=objects)
 
 # drop the remaining useless columns
-df_final = df_final.drop(columns=['Unnamed: 0','No voie'])
+df_final = df_final.drop(columns=['Unnamed: 0','No voie','Prefixe de section','No disposition','Type local','Surface reelle bati'])
 
 # 
 df_final.to_parquet('outputs/features_immo_data.parquet')

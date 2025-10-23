@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- FORMULAIRE MODEL -->
+    <form action="">
+        <!-- LOCALISATION ET TYPE DE BIEN -->
+        <fieldset>
+            <legend>Localisation et type de bien</legend>
+            <h4>Commencons par les informations de base de votre propriété.</h4>
+            <!-- CODE POSTAL -->
+            <div class="field">
+                <label for="code-postal">Code Postal :</label>
+               <input type="text" name="code-postal" class="code-postal"> 
+            </div>
+            <!-- CODE DEPARTEMENT -->
+            <div class="field">
+                <label for="code-dep">Code Département : </label>
+                <input type="text" name="code-dep" class="code-dep">
+            </div>
+            <!-- CODE COMMUNE -->
+            <div class="field">
+                <label for="code-commune">Code Commune : </label>
+                <input type="text" name="code-commune" class="code-commune">
+            </div>
+            <div class="field">
+                <label for="type-local">Type Local</label>
+                <select name="type-local" class="type-local">
+                    <option value="1">Maison</option>
+                    <option value="2">Appartement</option>
+                    <option value="3">Dépendance</option>
+                </select>
+            </div>
+        </fieldset>
+        <!-- CARACTERISTIQUES DU BIEN -->
+        <fieldset>
+            <legend>Caractéristique du bien</legend>
+            <h4>Précisez les dimentions et la configuration de votre bien.</h4>
+            <!-- TYPE LOCAL -->
+            <div class="field">
+                <label for="type-local">Type Local : </label>
+                <input type="text" name="type-local" class="type-local">
+            </div>
+            <!-- NOMBRE PIECES -->
+            <div class="field">
+                <label for="nombre-pieces">Nombre de pièces :</label>
+                <input type="text" name="nombre-pieces" class="nombre-pieces"> 
+            </div>
+            <!-- CODE COMMUNE -->
+            <div class="field">
+                <label for="surface-terrain">Surface Terrain : </label>
+                <input type="text" name="surface-terrain" class="surface-terrain">
+            </div>
+        </fieldset>
+
+    </form>
+</body>
+</html>
