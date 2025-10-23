@@ -136,7 +136,7 @@ Crée un fichier `.env` (ou copie `.env.example`) si nécessaire pour les chemin
 
 ---
 
-##  Outil de versionning des données
+##  Outil de versionning des données DVC
 ```bash
     dvc init
     git add .dvc .gitignore
@@ -148,6 +148,9 @@ Crée un fichier `.env` (ou copie `.env.example`) si nécessaire pour les chemin
   # Ajout dans git du dataset versionné avec DVC
     git add D:/ProjectFolderDevAI_2025-2026/Immo_project/Patricia-Promise-Immo/data.dvc .gitignore 
     git commit -m "Ajout du dataset versionné avec DVC"
+
+  # Création du remote pour versionning avec googledrive
+  dvc remote add -d gdrive gdrive://1yTb3GW18W_8Exd4GIDFjytMGEr_l9c3b
 
 ```
 ---
