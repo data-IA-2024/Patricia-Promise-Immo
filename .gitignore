@@ -220,11 +220,22 @@ data/**
 # ...mais garder le dossier lui-même
 !data/
 
+# Garder certains sous-dossiers structurants (mais pas leur contenu brut)
+!data/interim/
+!data/processed/
+
+# Garder les fichiers de métadonnées DVC dans ces sous-dossiers
+!data/interim/*.dvc
+!data/processed/*.dvc
+
+# (Optionnel) garder les marqueurs pour structure
+#garder un .gitkeep pour que le dossier existe dans le repo
+!data/.gitkeep
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+
 # ...et garder tous les fichiers .dvc (métadonnées DVC)
 !data/*.dvc
-
-# (optionnel) garder un .gitkeep pour que le dossier existe dans le repo
-!data/.gitkeep
 
 Petit rappel sur DVC:
 - data/ : dossier où sont stockées les données (ignoré par git)
