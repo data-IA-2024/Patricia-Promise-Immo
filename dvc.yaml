@@ -1,0 +1,16 @@
+stages:
+  ingest:
+    cmd: / -d scripts/get_and_save_data.py -d data/raw / -o 
+      data/interim/all_immo_entries.csv / python scripts/get_and_save_data.py
+  drop_empty:
+    cmd: / -d scripts/delete_empty_data.py -d data/interim/all_immo_entries.csv 
+      / -o data/interim/all_immo_no_empty.csv / python 
+      scripts/delete_empty_data.py
+  features:
+    cmd: / -d scripts/clean_and_prepare_data.py -d 
+      data/interim/all_immo_no_empty.csv / -o 
+      data/processed/features_immo_data.csv / python 
+      scripts/clean_and_prepare_data.py
+  train:
+    cmd: / -d scripts/train.py -d data/processed/features_immo_data.csv / -o 
+      artefacts/model.joblib / python scripts/train.py
