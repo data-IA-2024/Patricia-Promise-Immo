@@ -1,0 +1,4 @@
+*.parquet
+*.joblib
+*.txt.zip
+*.csv
