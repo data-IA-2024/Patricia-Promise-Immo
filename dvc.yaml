@@ -1,16 +1,29 @@
 stages:
   ingest:
-    cmd: / -d scripts/get_and_save_data.py -d data/raw / -o 
-      data/interim/all_immo_entries.csv / python scripts/get_and_save_data.py
+    cmd: python scripts/get_and_save_data.py
+    deps:
+    - data/raw
+    - scripts/get_and_save_data.py
+    outs:
+    - data/interim/all_immo_entries.csv
   drop_empty:
-    cmd: / -d scripts/delete_empty_data.py -d data/interim/all_immo_entries.csv 
-      / -o data/interim/all_immo_no_empty.csv / python 
-      scripts/delete_empty_data.py
+    cmd: python scripts/delete_empty_data.py
+    deps:
+    - data/interim/all_immo_entries.csv
+    - scripts/delete_empty_data.py
+    outs:
+    - data/interim/all_immo_no_empty.csv
   features:
-    cmd: / -d scripts/clean_and_prepare_data.py -d 
-      data/interim/all_immo_no_empty.csv / -o 
-      data/processed/features_immo_data.csv / python 
-      scripts/clean_and_prepare_data.py
+    cmd: python scripts/clean_and_prepare_data.py
+    deps:
+    - data/interim/all_immo_no_empty.csv
+    - scripts/clean_and_prepare_data.py
+    outs:
+    - data/processed/features_immo_data.csv
   train:
-    cmd: / -d scripts/train.py -d data/processed/features_immo_data.csv / -o 
-      artefacts/model.joblib / python scripts/train.py
+    cmd: python scripts/train.py
+    deps:
+    - data/processed/features_immo_data.csv
+    - scripts/train.py
+    outs:
+    - artefacts/Model_prix_dvf.joblib
