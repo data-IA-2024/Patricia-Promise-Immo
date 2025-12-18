@@ -211,7 +211,7 @@ __marimo__/
 *.csv.gz
 *.parquet
 
-*.txt*
+*.txt.zip
 
 # Data folder and DVC
 # Ignorer tout le contenu de data/
