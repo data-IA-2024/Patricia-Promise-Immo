@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price prediction</title>
+</head>
+<body>
+    <div style="text-align: center;">
+        <h1>Résultat de la prédiction du prix immobilier</h1>
+        <div style="width: 500px; justify-content: space-between; display : flex;  margin: auto;">
+            <p>Le prix prédit pour le bien immobilier est : </p>
+            <strong style="border: solid 3px black; background-color: bisque; padding: 10px;">{{ predicted_price }} €</strong>
+        </div>
+        <br>
+        <div style="width: 500px; justify-content: space-between; display : flex; margin: auto;">
+            <p>Le score de confiance est de  : </p>
+            <strong style="border: solid 3px black; background-color: bisque; padding: 10px;">{{ score_confiance }} €</strong>
+        </div>
+        <br>
+        <a href="/">Retour à la page d'accueil</a>
+    </div>
+</body>
+</html>

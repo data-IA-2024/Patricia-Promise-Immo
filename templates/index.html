@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <style>
+        h1{
+            text-align: center;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            width: 400px;
+            margin: auto;  
+            border: 3px solid black; 
+        }
+        fieldset{
+            margin-bottom: 10px;
+            border: none;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        button{
+            width: 200px;
+            margin: auto;
+            padding: 20px;
+            font-size: 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        img{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 800px;
+            height: 200px;
+            object-fit: cover;
+            margin-bottom: 30px;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Bienvenu sur l'application de prédiction immobilière : ImmoApp</h1>
+
+    <img src= "{{url_for('static', path='images/immo_image.jpg')}}"  alt="">
+    
+    <form id="predict-form">
+        <fieldset>
+            <label for="nombre_de_lot">Nombre de lot : </label>
+            <input type="number" name="nombre_de_lot" id="nombre_de_lot" value="1" min ="0">
+        </fieldset>
+        <fieldset>
+            <label for="code_type_local">Code type local : </label>
+            <select name="code_type_local" id="code_type_local" >
+                <option value="1">Maison</option>
+                <option value="2">Appartement</option>
+                <option value="3">Autre</option>
+            </select>
+        </fieldset>
+        <fieldset>
+            <label for="nombre_pieces_principales">Nombre de pieces principales : </label>
+            <input type="number" name="nombre_pieces_principales" id="nombre_pieces_principales" value="3" min ="0">
+        </fieldset>
+        <fieldset>
+            <label for="surface_terrain">Surface terrain : </label>
+            <input type="number" name="surface_terrain" id="surface_terrain" min ="0" value="90">
+        </fieldset>
+        <fieldset>
+            <label for="population">Population : </label>
+            <input type="number" name="population" id="population" min ="0" value="1700">
+        </fieldset>
+        <fieldset>
+            <label for="densite">Densite : </label>
+            <input type="number" name="densite" id="densite" min ="0" value="15">
+        </fieldset>  
+        <button type="submit" form="predict-form"  id="submit-btn">Prédire le prix</button>    
+
+    </form>
+
+    <div id="debug" style="margin-top:10px;"></div>
+
+    <p id="status"></p>
+    
+   <script>
+    window.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("predict-form");
+    const status = document.getElementById("status");
+
+    // DEBUG: prouve que le JS tourne
+    status.textContent = "JS chargé ✅";
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        status.textContent = "Envoi en cours... ⏳";
+
+        const payload = {
+        nombre_de_lots: Number(document.getElementById("nombre_de_lot").value),
+        code_type_local: document.getElementById("code_type_local").value,
+        nombre_pieces_principales: Number(document.getElementById("nombre_pieces_principales").value),
+        surface_terrain: Number(document.getElementById("surface_terrain").value),
+        population: Number(document.getElementById("population").value),
+        densite: Number(document.getElementById("densite").value),
+        };
+
+        const response = await fetch("/predict?include_confidence_score=true", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(payload)
+        });
+
+        const html = await response.text();
+        document.open();
+        document.write(html);
+        document.close();
+    });
+    });
+</script>
+</body>
+</html>
+
