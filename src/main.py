@@ -8,19 +8,19 @@ from pathlib import Path
 
 # Define base directory
 base_dir = Path(__file__).resolve().parent  # Path to the directory containing main.py (Patricia-promise-immo/src/main.py)
-
+root_dir = base_dir.parent  # Path to the root directory (Patricia-promise-immo/)
 # Create FastAPI instance
 app = FastAPI(title="Patricia Promise Immo API", version="1.0",
               description="API pour la prédiction du prix des biens immobiliers.")
 
 # Mount static files
-app.mount("/static", StaticFiles(directory=str(base_dir.parent/"static)")), name="static")
+app.mount("/static", StaticFiles(directory=str(root_dir/"static)")), name="static")
 
 # Set up Jinja2 templates
-template = Jinja2Templates(directory=str(base_dir.parent/"templates)"))
+template = Jinja2Templates(directory=str(root_dir/"templates)"))
 
 # Define a home page route
-@app.get("/", response_class=HTMLResponse, tags=["Page d'accueil"])
+@app.get("/", response_class=HTMLResponse, tags=["Formulaire de prédiction"])
 def formPageToPredict(request: Request):
     return template.TemplateResponse("index.html", {"request" : request})
                                      
