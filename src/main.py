@@ -1,10 +1,11 @@
 from fastapi import FastAPI, Request
-from schemas.propertyFeatures import PropertyPriceRequest, PropertyPriceResponse
+from .schemas.propertyFeatures import PropertyPriceRequest, PropertyPriceResponse
 from fastapi.templating import Jinja2Templates 
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from pathlib import Path
 from prometheus_fastapi_instrumentator import Instrumentator
+from scripts import immo_data
 
 #from artefacts.models import model
 
@@ -13,6 +14,10 @@ base_dir = Path(__file__).resolve().parent  # Path to the directory containing m
 print(base_dir)
 root_dir = base_dir.parent  # Path to the root directory (Patricia-promise-immo/)
 print(root_dir)
+
+# Initialize ImmoData instance
+immo_data_ = immo_data.ImmoData(output_path =str(root_dir/"data"), artefact_path=str(root_dir/"artefacts"))
+
 # Create FastAPI instance
 app = FastAPI(title="Patricia Promise Immo API", version="1.0",
               description="API pour la prédiction du prix des biens immobiliers.")
@@ -48,21 +53,30 @@ def priceImmoPrediction(request:Request, inputForModel:PropertyPriceRequest, inc
                 inputForModel.population,
                 inputForModel.densite
     ]
+
+    house = [{
+    'Nombre de lots': inputForModel.nombre_de_lots, 
+    'Code type local': inputForModel.code_type_local,
+    'Nombre pieces principales': inputForModel.nombre_pieces_principales, 
+    'Surface terrain': inputForModel.surface_terrain,
+    'population': inputForModel.population, 
+    'densite': inputForModel.densite
+    }]
+
    
-    pricePrédiction =  0 #model.predict([features])[0]
+    pricePrediction, confidence_score =  immo_data_.make_prediction(house)
+
 
     response_predict = PropertyPriceResponse(
-        pricePrediction=pricePrédiction,
+        pricePrediction = pricePrediction,
         currency="EUR",
         confidence_score= confidence_score
     )
 
     if include_confidence_score:
-        confidence_score = 0 #model.predict_proba([features])[0].max()
+        confidence_score = confidence_score
 
     return template.TemplateResponse(
         "reponsePredict.html",
-        {"request": request, "response_predict": response_predict}
+        {"request": request,  "pricePrediction": round(pricePrediction,2), "confidence_score" : confidence_score}
     )
-
-
