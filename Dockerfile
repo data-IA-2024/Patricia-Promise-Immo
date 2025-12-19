@@ -11,4 +11,4 @@ EXPOSE 8000
 
 HEALTHCHECK --interval=1m --timeout=5s --retries=3 CMD curl --silent --fail http://localhost:8000/health || exit 1
 
-CMD ["uvicorn", "main:app", "--app-dir", "src", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
