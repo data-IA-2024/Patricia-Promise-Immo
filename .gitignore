@@ -243,3 +243,6 @@ Petit rappel sur DVC:
 
 # Cela permet de versionner les données volumineuses avec DVC tout en gardant
 # le dossier data/ dans le dépôt git.
+
+# artefacts files
+artefacts/**
