@@ -4,6 +4,8 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from pathlib import Path
+from prometheus_fastapi_instrumentator import Instrumentator
+
 #from artefacts.models import model
 
 # Define base directory
@@ -14,6 +16,9 @@ print(root_dir)
 # Create FastAPI instance
 app = FastAPI(title="Patricia Promise Immo API", version="1.0",
               description="API pour la prédiction du prix des biens immobiliers.")
+
+# Set up prometheus intrumentor
+Instrumentator().instrument(app).expose(app)
 
 # Mount static files
 app.mount("/static", 
