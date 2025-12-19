@@ -80,3 +80,8 @@ def priceImmoPrediction(request:Request, inputForModel:PropertyPriceRequest, inc
         "reponsePredict.html",
         {"request": request,  "pricePrediction": round(pricePrediction,2), "confidence_score" : confidence_score}
     )
+
+@app.get("/health", tags=["Health Check"])
+def health_check():
+    """Endpoint pour vérifier la santé de l'API."""
+    return {"status": "ok", "message": "L'API fonctionne correctement."}
