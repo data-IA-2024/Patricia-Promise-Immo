@@ -258,9 +258,16 @@ class ImmoData:
         model = joblib.load(f"{self.artefact_path}/model.pkl")
         inputs = pd.DataFrame(raw_inputs)
         predicted_price = model.predict(inputs)[0]
-        confidence = max(0, 1-(self.mrse / predicted_price))
+
+        mlflow.set_tracking_uri("https://mlflow.datalab.centreia.fr/")
+        exp = mlflow.get_experiment_by_name("immo_group1")
+
+        runs = mlflow.search_runs([exp.experiment_id], order_by=["start_time DESC"], max_results=1)
+        rmse = float(runs.loc[0, "metrics.rmse"])
+        print(rmse)
+        confidence = max(0, 1-(rmse / predicted_price))
         confidence_score = round(confidence * 100, 2)
-        print(predicted_price,self.mrse, confidence_score)
+       
 
         return predicted_price, confidence_score
     

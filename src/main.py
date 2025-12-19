@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Request
-from .schemas.propertyFeatures import PropertyPriceRequest, PropertyPriceResponse
+from src.schemas.propertyFeatures import PropertyPriceRequest, PropertyPriceResponse
 from fastapi.templating import Jinja2Templates 
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
